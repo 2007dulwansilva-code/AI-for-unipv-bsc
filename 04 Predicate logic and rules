@@ -1,0 +1,133 @@
+We can only deal with one object at a time in propositional logic, however we want to relate objects.
+
+Ex :
+Ana is a person, saying something about the object
+Ana supervises bob, implying a relationship
+Grandparent is a parent of a parent, relation between properties
+
+We extend this rules to handle predicate knowledge.
+
+uncle(x) ← sibling (x,y), parent(y,z)
+
+Meaning if x is an uncle then y is a sibling of x and y is the parent of z
+
+We can introduce variables to show that there is a set of possible objects that makes the relationship stand. 
+
+In predicate logical we need to give a scope to this variable x
+∃x.parent(ana,x) there exist an x such that ana is the parent of x, we can find a predicate that begin true
+∀ x.parent(ana,x) for all possible x ana is the parent of x, any constant makes it true
+
+Syntax of predicate logic : We have constants a,b,c
+			Unary and binary predicate symbols P,Q,R
+			Variables x,y,z
+
+A predicate horn clause is a disjunction of literals with exactly one positive literal
+
+Semantics of predicate logic : 
+Unary predicates are used to define the property of an object
+Binary predicates show relationships between two objects
+
+Intepretation based semantics : 
+
+An interpretation has a domain and an Intepretation function
+𝐼 = (𝛥𝐼,⋅𝐼)
+
+The domain refers to the set of objects/constants we deal with
+The interpretation function tells us how to read the symbols in the domain, 
+ai € Δi
+if P is unary Pi ⊆ Δi 
+ if P is binary Pi ⊆ Δi × Δi 
+
+We interpret constants as objects, unary predicates as classes of objects with a property and binary predicates as the relation between objects. 
+Intepretation as graphs : We can represent this interpretation graphically by using arrows between objects for binary predicates and labelling and object for unary predicates. 
+
+Predicate rules : 
+A predicate rule is a predicate clause such that all variable in the head appear in the body
+A Predicate knowledge base  is a set of predicate rules.
+
+Models : 
+Whenever the body of an interpretation function is true then its head is true. 
+I is a model of the KB if it satisfies all rules in K
+K ⊨ P(𝑎) if P(𝑎) is true in all models of K
+
+Knowledge propagation : we do this by building a minimal representation of all possible models (canonical model)
+We are trying to find the things that follow when our kb is true and finding all possible models for our KB
+
+If we can conclude something is true in the canonical model then it is true for all possible models
+
+This canonical model can be queried to decide any entailments (conclusions)
+
+The canonical model solely depends on the objects, if we add any new models it wont be a model anymore. 
+
+Constructing the canonical model : 
+
+The canonical model is built from and empty model by adding only the necessities to satisfy the constraints of the model. 
+1.	Create all relevant nodes : We assume each constant refers to a different element of the domain
+2.	Add facts 
+3.	Propagate rules : If we can make the body of our rule true then we add everything needed to satisfy the head, if the body is true then the head is also true. 
+
+We define the domain of the canonical model as all the constants of the KB. They are interpreted as themselves. 
+
+For each fact P(a) ← add the label P to the node a 
+For each fact Q(a,b) ← add a Q labelled edge from a to b
+
+Take a predicate rule, if all those predicated are true then the predicate in the head must be true. 
+Substitute the variables with constraints, then they are facts. Look at all possible substitutions. 
+
+Exam prep steps : 
+
+Create nodes for each variable in the domain of the KB.
+Encode all the given facts in the KB
+Propagate knowledge through the given rules. 
+
+The canonical interpretation I can is a model of KB
+An interpretation is a model if it satisfy all the rules
+
+Reasoning from the canonical model :
+A fact is entailed in the KB if the canonical model entails the fact
+
+Query answering :
+Suppose we want to know all the objects with a given property
+Suppose we want to Find all a such that K ⊨ P(a) (query p(x))
+P(x) ti will give back a, c, e because they are label with P
+
+Correctness :
+We must guarantee this method is Complete and Sound. 
+Completeness is shown since every consequence is found
+Soundness if followed since every fact is true for all models
+
+Completeness : 
+If the canonical interpretation does not satisfy P(a) then it is not entailed in the KB
+If it is entailed then it should appear in the canonical model
+
+Soundness : 
+If the canonical model states P(a) to be true then it should be true for all models
+
+Homomorphism : 
+We take a model I and its domain. 
+We define h: 𝐼∶ (𝛥−> 𝛥 𝐼) by h(a) =  aI     a € Δ
+This maps every constant to an element in the domain
+If a belongs to P ican then h(a) belongs to P i
+If (a,b) belongs to Q ican then (h(a), h(b)) belongs to Q i
+
+Proof by induction : 
+We follow the steps to construct I can
+If  P(a) was added through substitution through P(t)←Q1(t1),.., Qn(tn)
+Then by induction h(δ (ti)) € Qi
+But I is a model thus h(δ(t)) € Pi
+
+It suffices to look at the canonical model to derive all the atomic consequences of a KB
+To add a fact we need to check for each rule and each substitution if the body holds, for k constants and a rule has n variables then k*n substitutions
+
+What if we are interested in complex properties?
+For example find all pairs (x,y) such that P(x) and there is a Q-path from x to y
+We need to encode in some way the knowledge of Q-path, we first need to defined it
+QPath(x,y) ← Q(x,y) is the same as
+QPath (x,y) ← Q(x,z) QPath(z,y)
+
+Grounding : The set of all its instantiations given a fixed set of constants. 
+The ground is a set of rules with no variables
+
+
+
+
