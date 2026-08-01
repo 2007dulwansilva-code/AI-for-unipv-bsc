@@ -1,0 +1,48 @@
+Boolean algebra  is a formalism for manipulating truth values 1 and 0
+
+Boolean operators are conjunction, disjunction and negation.
+
+We present complex expressions by using these operators.
+
+Ex : (¬(1 ∨ 0)) ∧ (1 ∨ (1 ∧ 0))
+
+Propositional logic is a formalism on combining propositions and make conclusions about their truth value. 
+
+An Atomic proposition is a single fact or property
+
+Since propositional logic is a language we need to specify its syntax and semantics.
+
+Syntax is which expressions are allowed
+Semantics are what they mean
+
+Syntax : take a set of propositional variables (x,y,z), these are atomic propositions
+
+	The class/set of propositional formulas are defined as
+1.	Every propositional variable is a formula
+2.	If A and B are formulas then their conjunction, negation and disjunction are also formulas
+Operator precedence: not, and, or
+
+Semantics : Atomic propositions can be true or false, hence the truth status of propositional formulas also depend on its components
+	A valuation is the assignment of a truth value to each variable
+	Example v(z) = 1
+
+The three kinds of propositional formulas are : 
+
+1.	Tautologies : True regardless the valuation
+2.	Contradictions : False regardless of valuation
+3.	Non tautological satisfiable : Exists a truth status but not true for every valuation
+
+Equivalence is where two formulas result in the same truth table. 
+
+The completeness of operators are shown by the fact that the operators suffice to express any formula regardless the number of variables.
+
+De Morgan
+¬ (X ^ Y) = ¬ X v ¬ Y
+¬ (X v Y) = ¬ X ^ ¬ Y
+Distributivity
+X ^ ( Y v Z) = (X ^ Y) v (X ^ Y)
+X v (Y ^ Z) = (X v Y) ^ (X v Y)
+Involution
+¬ ¬ X = X
+
+
