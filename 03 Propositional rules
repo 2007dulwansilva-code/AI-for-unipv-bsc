@@ -1,0 +1,36 @@
+A Clause is a disjunction of literals, basically a set of literals ( propositional formula or its negation ) 
+
+A horn clause  is a clause with upto one positive literal
+
+A definite horn clause has exactly one positive literal
+
+Knowledge representation ;
+
+A knowledge base is a finite set of rules
+It’s a collection of clauses and formulas
+It’s a set of formulas a1 … an which we consider all true
+
+If B is a consequence of the KB then (a1 ^ … ^ am) → B is a tautology
+K ⊨ φ  means K entails φ
+φ is a consequence of K
+K is a knowledge base and when the KB  is true φ must be true
+K → φ is a tautology
+
+Unit propagation is basic truth propagation where we can remove a existing fact from the body of other rules since we only need to consider possible contradiction, we can simply neglect anything forced to be true.
+
+Fact extraction algorithm is where we input the KB and outputs its redux with all facts true given the KB K.
+
+Unit resolutions is sound, it does not conclude something that is false.
+
+Unit resolution is complete since it returns all the facts that are consequences of the KB
+
+A fact is consequence of the KB K if it’s a fact in its redux. 
+This means that K → K^ is a tautology
+
+If particular K → x is a tautology, if x is a fact in K^
+
+For complex entailments K ⊨ Y ← X1, … Xn we add the propositional variables in the body as facts to the existing KB and if its redux provides that Y is necessarily true then it does entail.
+
+Computational complexity is where the worst case scenario in computing the redux of a KB is n*m where n rules and m variables and having all variables as facts.
+A Knowledge base cannot express relationships between objects.
+
