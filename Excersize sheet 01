@@ -1,0 +1,71 @@
+x	y	Z	Not(x ^ y)	Not(x^y) v z
+0	0	0	1	1
+0	0	1	1	1
+0	1	0	1	1
+0	1	1	1	1
+1	0	0	1	1
+1	0	1	1	1
+1	1	0	0	0
+1	1	1	0	1
+Exercise session 1 
+1.1
+
+1.2 
+w	x	y	z	x ^ y	Not x ^ Not W	OR	AND Z
+0	0	0	0	0	1	1	0
+0	0	0	1	0	1	1	1
+0	0	1	0	0	1	1	0
+0	0	1	1	0	1	1	1
+0	1	0	0	0	0	0	0
+0	1	0	1	0	0	0	0
+0	1	1	0	1	0	1	0
+0	1	1	1	1	0	1	1
+1	0	0	0	0	0	0	0
+1	0	0	1	0	0	0	0
+1	0	1	0	0	0	0	0
+1	0	1	1	0	0	0	0
+1	1	0	0	0	0	0	0
+1	1	0	1	0	0	0	0
+1	1	1	0	1	0	1	0
+1	1	1	1	1	0	1	1
+
+1.3
+x	y	X v y 	(x v y) ^ x
+0	0	0	0
+0	1	1	0
+1	0	1	1
+1	1	1	1
+
+
+
+
+
+1.4
+p	q	S	Not p v q v s	p and	Not p	Or q or s
+0	0	0	1	0	1	1
+0	0	1	1	0	1	1
+0	1	0	1	0	1	1
+0	1	1	1	0	1	1
+1	0	0	0	0	1	1
+1	0	1	1	1	0	1
+1	1	0	1	1	0	1
+1	1	1	1	1	0	1
+
+2.1 (not x ^ not y ^ z) v (not x ^ y ^ z) v (x ^ not y ^ not z)
+2.2 (not x ^ not z) v (x ^ z)
+
+6. (x ^ not y ^ not z) v ( x ^ y ^ z)
+    We apply distributivity and remove tautologies and then clauses are formed along with facts  
+    If we wanna build a model, we remove the constraints of any facts since they are always true. 
+7. We are able to build a KB for a definite horn clause but in a situation x v y we cannot represent it as a KB. In our language we cannot have two or more variables in the head for (x v y) <- is not an option. Any formula can be transformed to CNF but for a KB it’s a set of definite horn clauses.
+
+9.1 It does change since it affects the redux
+10. this means if v(x) = 1 then v (y) = 1
+	When x <- y means not x v y 
+	Since it’s a tautology then v(not x v y) = 1
+	When z <- x means not z v x 
+	Since it’s a tautology then v(not z v x) = 1
+
+	 There is only one case where each point it can be 0 which is when v(x) = 0 and v(y) = 0
+	However this is not possible since it’s a tautology and the answer valuations are 1 so we
+	Simply neglect since its not possible. 
