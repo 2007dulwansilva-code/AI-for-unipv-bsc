@@ -1,0 +1,13 @@
+Rules of programming : 
+We read H <- B as if B is true then H is true. 
+This Unidirectionally propagates knowledge from B to H.
+
+Domain closure : Rules can never introduce new objects.
+The variables in the head must appear in the body.
+Cannot represent knowledge with anonymous individuals
+
+Language extensions : 
+We want to extend predicate logic so that we can show: 
+	Negated facts
+	Disjointness or constraints
+	Anonymous individuals
