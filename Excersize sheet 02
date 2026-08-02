@@ -1,0 +1,64 @@
+Excersize sheet 02:
+1.1	parent(a,b) <-
+female(a) <-
+male(a) <- 
+
+aunt(x) <- sibling(x,y) ^ parent (y,z) ^ female(x)
+sibling(x,y) <- parent(z,x) ^ parent(z,y)
+uncle(x) <- sibling(x,y) ^ parent (y,z) ^ male(x)
+grandmother(x) <- female(x) ^ parent(x,y) ^ parent(y,z)
+ancestor(x) <- 
+
+1.2	aunt(x) <- sibling(x,y) ^ parent (y,z) ^ female(x)
+aunt(x) <- female(x) ^ married(x,y) ^ uncle(y)
+
+uncle(x) <- sibling(x,y) ^ parent (y,z) ^ male(x)
+uncle(x) <- male(x) ^ married(x,y) ^ aunt(y)
+
+2.1    Note that sibling, aunt,uncle should be mentioned as well. 
+2.2 Efraim is ancestor of denis
+      Efraim not ancestor of greta
+      Francis not uncle of bob
+      Francis is uncle of denis
+      Ana, Ingrid are grandmothers
+     Claudia and Ingrid are siblings
+
+3.1 It is possible to make a model with 7 elements. Since the canonical model has 9 elements we need to remove two elements. 
+A model will less elements is a weaker model. 
+Here we can remove denis and Hans and squeeze them together with Ingrid
+New domain will be {a,b,c,d,e,f,g}
+New interpretation is Denis I = I and Hans I = i
+Note that we can do this and map ancestor to itself, there is no restraint saying I cannot be male and female at the same time.
+  
+3.2
+
+4.1 A model is an interpretation that satisfies all the rules, every set of predicate rules are consistent since every KB is consistent given that they all have a canonical model.
+4.2 There can always be a model with one element, there is no limitation however the smaller the number of elements the weaker the model. 
+I = ({§}, . I )
+. I represents the intepretation function where b I = §
+					            c I = §
+This kind of model is useless for reasoning
+
+5.1 	We need to create a KB with 4 facts and 1 rule
+	|§| = 4 but |§.§| = 16 therefore we need a rule with a binary predicate
+
+	P(a) <-
+	P(b) <-
+	P(c) <-
+	P(d) <-
+	Q(x,y) <- p(x), p(y)
+
+5.2	Canonical model is such that 
+Q(a,a) Q(a,b) Q(a,c) Q(a,d) Q(b,a) Q(b,b) Q(b,c) Q(b,d) Q(c,a) Q(c,b) Q(c,c) Q(c,d) Q(d,a) Q(d,b) Q(d,c) Q(d,d)
+6. 	When searching for such an entailment we add a new constant c into the KB and assert q(c) 
+	Given that we cant to check entailment for p(x) <- q(x)
+	Then we Create the canonical model including q(c) and this would result in a new model, 
+	If this model entails p(c) then it is entailed otherwise we have found its countermodel.
+
+7. The Disjoint union is where we take two inepretations I and J and exists an intersection of the two intepretations. It’s the graph obtained by putting together the graphs of I and J. 
+
+8.1 We need a constraint to show someone cannot be there own sibling
+      <- sibling(x,x)
+      Also that no one is a parent of themselves, or not male and female at the same time.
+8.2 This creates lots of changes
+9.1  
