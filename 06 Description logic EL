@@ -1,0 +1,158 @@
+EL is an inexpressive DL only allowing cojunctions n and ∃ as constructors.
+
+Syntax of EL :
+The main blocks of EL are Concepts and Roles
+Concepts are unary predicates and roles are binary predicates. Expresses relationship between objects
+Here we ignore constants, only use of variables
+
+We consider infinite disjoint sets; 
+Nc  for concept names such as female
+Nr  for role names such as haschild
+Formally they are unbounded and infinite
+
+Concepts are always represented as capital letters (A,B,C) where roles are in simple letters (r,s,t)
+
+EL⊥ concepts are defined by (A € Nc (concept name), r € Nr(role name)
+C :: = A | T | ⊥ | C ∏ C | ∃ r.C
+C: class of all concepts concepts names, sometimes are called complex concepts to differentiate from concept names
+Bars (|) separate different possibility
+A: concept name
+T: tautology (always true)
+⊥ : contradiction
+C: is a general concept, the two C can be different
+
+There can exist the class of all concept names, tautologies and contradictions are concepts. 
+
+
+
+
+There can be the conjunction of two concept names C and there can be r as a role name and ∃ r.C is a concept
+- Female is a concept
+- T is a concept
+- ∃ hasChild.Female (hasChild is a role name, Female is a concept, so ∃ hasChild.Female is a concert)
+- Female ∏ ∃ hasChild.T it is a concept. Refers to the class that have a female class
+- ∃ hasChild.Female ∏ ∃ hasChild.Male (Male is a concept, that total is a concept). Class of people that have one female and one male
+- ∃ hasChild.(Female ∏ ∃ hasChild.Male) is a concept . People that have a child that is a female that have a male child. Have a daughter and that daughter have a son
+- ∃hasChid.⊥ is a concept (it actually is a contraction) people that have a child that cannot exists
+
+Semantics of EL : 
+An Intepretation is a pair I = (Δi, •i) where it is a non empty set of objects called the domain and the intepretation function which maps 
+Every A € Nc to a set Ai ⊆ Δ
+Every r € Nr to a binary relation ri ⊆ Δi x Δi
+Ti = Δi (T is tautology, implicitly we know that all objects satisfy top). The interpretation of top is the interpretation domain
+⊥ i = ø no objects satisfy a contradiction. The interpretation of bottom (⊥) must be the empty set
+(C ∏ D)i = Ci ∩ Di must satisfy C and D, must belong to both set so it must belong to the interception
+( ∃ .r.C)i = {δ € Δi | ∃η € Ci. (δ, η) € ri}
+
+Example : 
+Δi= {w,x,y,z}
+Ai= (y,z)
+Bi = (w,x,y)
+
+ri = {(w,x), (x,x), (z,z)}
+si = {(w, y), (x y) (z,z)}
+ 
+Note that for w and x we can say ∃ r.B given that the object belongs to B and has an r edge going to a B
+We can say z ∃ s.A since they belong to a concept A and has an s edge going to A
+
+C = ∃ r ∃ s.A means the concepts with an edge r that goes to ∃ s.A
+
+Reasoning : 
+A concept C is Satisfiable if there is an interpretation I such that C set is a non empty set in the interpretation
+Concept subsumption : 
+Let C and D be EL concepts
+C is subsumed by D if for all intepretations I C is subsumed by D meaning C is a sub class of DWe will denote this as C ⊑ D
+Concept trees : 
+ 
+This is sort of a canonical model
+
+Subsumption through homomorphism : 
+A Homomorphism between two concept trees T1 T2 is a function h mapping each node from T1 to T2
+h(root(T1)=root(T2))
+For every n € nodes(T1), label(n) ⊆ label(h(n))
+If m is an r-successor of n, then h(m) is an r-successor of h(n)
+
+Every element belongs to both trees
+If the node is A then it needs to be mapped to at least A
+If A was an r successor of B then it should be same for h(A) as an r successor of h(B)
+Remember! C ⊑ D does not mean D ⊑ C
+
+C is subsumed by D if we can find a homomorphism from T(D) to T(C)
+All objects satisfying T(C) also satisfy T(D) thus all objects in Ci belong to Di. This is a subsumption
+Ci ⊆ Di
+C and D are equivalent if they are subsumed by each other in both directions
+ 
+
+The terminological box (Tbox) :
+The Tbox imposes restrictions to interpretation of concepts
+Interpretations that do not satisfy this are ignored
+A General concept inclusion GCI is an expression C ⊑ D
+A Tbox is a finite set of these GCIs, implying a finite set of restrictions.
+
+Tbox semantics : 
+An interpretation I satisfies the GCI C subsumed by D is Ci subsumes Di
+I is a model of the Tbox if it satisfies all GCIs in Tbox T
+
+Tbox reasoning : 
+Tbox reasoning is restricted to the class of models only
+Concept satisfiability, if their exists a model I of T such that the set Ci is non empty
+Concept subsumption (with respect to T) does Ci ⊆ Di hold for all models i of T
+
+ 
+Note that every EL Tbox is consistent given that there are no contradictions. This results in that Every EL concept is satisfiable with respect to an EL Tbox
+Normal form :
+A GCI is in normal form if it has one of these shapes.
+A ⊑ B
+A1 ∏ A2 ⊑ B
+A ⊑ ∃ r.B
+∃r.A ⊑ B
+Somewhat of an atomic syntax
+A Tbox is in normal form if all the GCIs are in normal form
+C ⊑ D ∏ E
+Is equivalent to
+C ⊑ D and C ⊑ E
+Relationships with rules :
+GCIs in normal are basically existential rules with constraints.
+
+A ⊑ B 			B(x) ← A(x) if an object x belong to A it also belong to B
+A1 ∏ A2 ⊑ B		 B(x) ← A1(x), A2(x)
+∃ r. A ⊑ B 		B(x) ← r(x,y), a(y)
+A ⊑ ∃ r.B 		SrB(x,y) ← A(x) r(x,y) ← SrB(x,y) B(y) ← SrB(x,y) three rules at the same time
+T in body and ⊥ in the head are removed
+
+Normalisation is not a restriction. Every finite set of GCI can be transformed into a Tboc in normal form.
+C^ ⊑ D^			 C^ ⊑ A		 A ⊑ D^
+B ⊑ C ∏ D		 B ⊑ C		 B ⊑ D
+∃ r.C^ ⊑ D		 ∃ r.A ⊑ D 	C^ ⊑ A
+D ⊑ ∃ r.C^ 		D ⊑ ∃ r.A 	A ⊑ C^
+B ∏ C^ ⊑ D		 B ∏ A ⊑ D	 C^ ⊑ A
+
+If we sub something on the left side then it stays on the left side of the normalised subsumption and vice versa.
+Norm T is the normalised T box we get. Normalisation never adds or removes subsumption relationships
+
+1.	If T ⊢ A ⊑ B 	and B ⊑ C € T 				then conclude T ⊢ A ⊑ C
+2. 	If T ⊢ A ⊑ B1,	If T ⊢ A ⊑ B2 	and B1 ∏ B2 ⊑ C € T	then conclude T ⊢ A ⊑ C
+3. 	If T ⊢ A ⊑ B, 	If T ⊢ C ⊑ D 	and B ⊑ ∃ r.C € T 	then conclude T ⊢ A ⊑ ∃ r.D.
+4. 	If T ⊢ A ⊑ ∃ r.B 			and ∃ r.B ⊑ C € T 	then conclude T ⊢ A ⊑ C
+ 
+Soundness :
+We need to show that every consequence derived is entailed by T
+This depends on the soundness of the completion rules
+Completeness : 
+We need too  show that if a consequence is not derived then T does not entail it
+We build a model that verifies this, find a model that does not satisfy it so we know its not true for any model
+Model construction :
+We first built the interpretation I 
+Δi = {δa | A € PC} (concept representatives)
+ Ai = {δB | B ⊑ A is derived}
+ri = {δa, δb) | A ⊑ ∃ r.B is derived}
+
+
+
+
+
+
+
+
+
+
