@@ -1,0 +1,104 @@
+Els have no way of expressing negations. 
+In EL_ we can partially achieve this. A ⊓ B ⊑ ⊥
+
+A minimal definition for ALC :
+ALC is the extension of EL but with negation
+C ::= A | C ⊓ C | ∃r.C | ¬C
+
+A concept can be a concept name, conunction of concepts, restricted class or a negation of a concept
+Semantics (¬C )i = ∆i \ Ci
+Semantics: given by interpretations, take an interpretation that define a domain and gives to every concept name a set of object and to every role name a binary relation (set of pairs)
+∀r.C := ¬(∃r.¬C) Universal restriction
+If an object does not have any r successor than they object belongs to ∀ r.C
+
+From now on, we simply consider all constructors
+¬, ⊓, ⊔, ∃, ∀
+Duality of quantification : 
+¬(∃r.C) = ∀r.¬C ¬(∀r.C) = ∃r.¬C
+Use the definition of ∀ and ∃
+
+Example : 
+¬(∃r.(¬A ⊓ B) ⊔ ∀s.C) 
+Apply DeMogan
+≡ ¬(∃r.(¬A ⊓ B)) ⊓ ¬(∀s.C)
+¬ ∃D → ∀ ¬ D ¬ ∀D → ∃ ¬D
+≡ ∀r.¬(¬A ⊓ B) ⊓ ∃s.¬C
+DeMorgan
+≡ ∀r.(A ⊔ ¬B) ⊓ ∃s.¬C
+Now is in NNF
+
+We will now describe algorithms for deciding : 
+	Concept satisfiability
+	Tbox consistency
+	KB consistency
+
+Through a method called Tableaux. This introduces a new kind of reasoning process. 
+It’s a process that tries to construct a model by decomposing complex constraints into simple ones.
+
+Example:
+A⊓∃r.(A⊓¬C)⊓∀r.(¬A⊔B)
+1.	We first draw a tree diagram following a where 
+A  A n not C n (not A u B)
+
+A and Not A cannot exist therefore we follow with branch B
+Therefore it is satisfiable with A, Not C and  B.
+
+If we want to check if the concept C is satisfiable then we want to build an object that belongs to C. 
+Assert C(a)
+a is an arbitrary domain element. We created the object a.
+There is a object a that belong to the concept C.
+we start with the singleton set A = {C(a)}
+
+Decomposition : Apply the tableaux rules until we find an intepration that guarantees we cannot find it. 
+Rules :   If C and D belongs to A then add C(x), D(x) to A
+	If C or D belongs to A then add either C(x) or D(x) to A
+	If exists r.c(x) belongs to A then add r(x,y), C(y) to A
+	If for all r.C belongs to A then add C(y) to A
+
+Note that there is no rule to handle negation! It appears as the last item of the decomposition. 
+A set of assertions A is saturated of no rule is applicable any more to it and Closed if there exists an Obvious contradiction. It is Open if its not closed. 
+Example : 
+A⊓∃r.(A⊓¬C)⊓∀r.(¬A⊔B)
+1.	We separate the Conjunctions
+2.	A (a), ∃r.(A⊓¬C) (a), ∀r.(¬A⊔B) (a)
+
+No rule applicable to first part, we move to second
+We create a new object b : r(a,b) A⊓¬C
+We decompose this to A (b) and ¬C (b)
+3.	∀r.(¬A⊔B) (a)
+¬A⊔B (b)
+4.	Now we chose possible assertions. Here A and not A cannot exist same time so we chose B
+It is now saturated but open
+Reasoning : 
+The concept C is satisfiable if the tableaux algorithm is saturated and open.
+
+Summary : Starting from {C(a)} we construct a saturated set of assertions A 
+If A is open then Ia satisfies all assertions in A
+
+If the tableaux produces a saturated and open set A then C is sat. 
+If C is sat then there are choices such that the tableau yields a saturated open set. 
+
+C1 ⊑ D1 equivalent to T ⊑ ¬ C1 ⊔ D1
+C2 ⊑ D2 equivalent to T ⊑ ¬ C2 ⊔ D2
+
+A model needs to satisfy both conditions
+T ⊑ ( ¬ C1 ⊔ D1) ∏ ( ¬ C2 ⊔ D2)
+
+Example : 
+A ⊑ B ∏ ∀ r.A 		Becomes 	T ⊑ ¬ A U (B ∏ ∀ r.A) 	1
+B ⊑ ∃ r. ¬ A		Becomes 	T ⊑ ¬ B U (∃ r. ¬ A)	2
+
+4 selective choices from disjunction meaning 4 possible models. 
+¬ A U (B ∏ ∀ r.A) (a)  , ¬ B U (∃ r. ¬ A) (a)
+1.	¬ A (a) ,  ¬ B (a)		This is a possible model!
+2.	¬ A (a) ,  ∃ r. ¬ A (b) 	This is a possible model!
+
+(B ∏ ∀ r.A) (a) turns into  	B (a) , ∀ r.A (b)
+
+3.	B (a) , ∀ r.A (b) , ¬ B (a)		This is not a possible model! 
+4.	B (a) , ∀ r.A (b) ,  ∃ r. ¬ A (b) 	This is not a possible model!
+
+To check if a tbox is consistent start with the set {T(a)}
+Apply the tableau rules to find a saturated open set. 
+Consider a Tbox with GCI T ⊑ ∃r.T
+	With a simple assertion {T(a)}
